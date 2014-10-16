@@ -8,19 +8,11 @@ class ProfessorsController < ApplicationController
 
   # GET /professors/1
   def show
-    # create an empty Rating so we can allow the user to 
-    # fill it in on the show view
-    @rating = @professor.ratings.new
   end
 
   # GET /professors/new
   def new
     @professor = Professor.new
-    # if we created multiple new ratings, they would all 
-    # show up in the new view
-    # The new Rating is put into the Professor's array of Ratings
-    # that we can access in the view using @professors.ratings
-    @professor.ratings.new
   end
 
   # GET /professors/1/edit
@@ -29,10 +21,6 @@ class ProfessorsController < ApplicationController
 
   # POST /professors
   def create
-    # MAGIC SPOT
-    # Since the Professor "has_many" ratings, the new function looks
-    # for Ratings parameters in the given parameters.  If it finds 
-    # them it will also create one (or more) new Rating objects
     @professor = Professor.new(professor_params)
 
     if @professor.save
@@ -65,6 +53,6 @@ class ProfessorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def professor_params
-      params.require(:professor).permit(:first, :last, :university, ratings_attributes: [:course, :comment, :rating])
+      params.require(:professor).permit(:first, :last, :university)
     end
 end

@@ -15,22 +15,16 @@
 
   <tbody>
     <% @professor.ratings.each do |rating| %>
-      <% if !rating.new_record? %>
-        <tr>
-          <td><%= rating.course %></td>
-          <td><%= rating.comment %></td>
-          <td><%= rating.rating %></td>
-          <td><%= link_to 'Edit', edit_rating_path(rating) %></td>
-          <td><%= link_to 'Destroy', rating, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
+      <tr>
+        <td><%= rating.course %></td>
+        <td><%= rating.comment %></td>
+        <td><%= rating.rating %></td>
+        <td><%= link_to 'Edit', edit_rating_path(rating) %></td>
+        <td><%= link_to 'Destroy', rating, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>
-<br>
-<br>
-<h3>Create New Rating</h3>
-<%= render 'ratings/form' %>
 <br>
 <br>
 
