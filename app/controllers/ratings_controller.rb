@@ -5,18 +5,6 @@
 class RatingsController < ApplicationController
   before_action :set_rating, only: [:edit, :update, :destroy]
 
-  # GET /professors/:professor_id/ratings
-  def index
-    # index is now all the ratings for a single professor (not all the ratings)
-    # the URL will contain the id of the current professor (:professor_id)
-    # use the :professor_id parameter to find all the ratings
-    @professor = Professor.find params[:professor_id]
-    # the has_many function called in app/models/professor.rb created the 
-    # function "ratings" which will return an array of all the ratings 
-    # with the professor foreign key matching @professor
-    @ratings = @professor.ratings
-  end
-
   # GET professors/:professor_id/ratings/new
   # Create a new rating in the context of a Professor object
   # that way the Rating's foreign key (professor_id) will be
@@ -45,7 +33,7 @@ class RatingsController < ApplicationController
     @rating = @professor.ratings.new(rating_params)
 
     if @rating.save
-      redirect_to professor_ratings_url(@professor) , notice: 'Rating was successfully created.' 
+      redirect_to professor_url(@professor) , notice: 'Rating was successfully created.' 
     else
       render :new
     end
@@ -56,7 +44,7 @@ class RatingsController < ApplicationController
   # and cannot be changed by edit (note that professor_id is not permitted in rating_params())
   def update
     if @rating.update(rating_params)
-      redirect_to professor_ratings_url(@rating.professor), notice: 'Rating was successfully updated.'
+      redirect_to professor_url(@rating.professor), notice: 'Rating was successfully updated.'
     else
       render :edit
     end
@@ -65,7 +53,7 @@ class RatingsController < ApplicationController
   # DELETE /ratings/1
   def destroy
     @rating.destroy
-    redirect_to professor_ratings_url(@rating.professor) , notice: 'Rating was successfully destroyed.' 
+    redirect_to professor_url(@rating.professor) , notice: 'Rating was successfully destroyed.' 
   end
 
   private
