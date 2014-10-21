@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   # rating's routes will be nested inside a professor for index, new, and create
   # rating route: 
   #      /professors/:professor_id/ratings
